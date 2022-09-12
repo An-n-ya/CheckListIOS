@@ -13,6 +13,7 @@
 		4A5E23B528C839A20015BBF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A5E23B328C839A20015BBF1 /* Main.storyboard */; };
 		4A5E23B728C839A30015BBF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A5E23B628C839A30015BBF1 /* Assets.xcassets */; };
 		4A5E23BA28C839A30015BBF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A5E23B828C839A30015BBF1 /* LaunchScreen.storyboard */; };
+		4AB8661828CF01F700F7B798 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8661728CF01F700F7B798 /* ChecklistItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		4A5E23B628C839A30015BBF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A5E23B928C839A30015BBF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A5E23BB28C839A30015BBF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AB8661728CF01F700F7B798 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				4A5E23B628C839A30015BBF1 /* Assets.xcassets */,
 				4A5E23B828C839A30015BBF1 /* LaunchScreen.storyboard */,
 				4A5E23BB28C839A30015BBF1 /* Info.plist */,
+				4AB8661728CF01F700F7B798 /* ChecklistItem.swift */,
 			);
 			path = "日程表";
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				4A5E23B228C839A20015BBF1 /* ChecklistViewController.swift in Sources */,
 				4A5E23AE28C839A20015BBF1 /* AppDelegate.swift in Sources */,
 				4A5E23B028C839A20015BBF1 /* SceneDelegate.swift in Sources */,
+				4AB8661828CF01F700F7B798 /* ChecklistItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
