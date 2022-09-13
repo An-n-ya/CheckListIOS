@@ -11,9 +11,22 @@ class ChecklistViewContoller: UITableViewController {
     
     var items = [ChecklistItem]()
     
+    // MARK: - Actions
+    @IBAction func addItem() {
+        let newRowIndex = items.count
+        
+        let item = ChecklistItem()
+        item.text = "一个新的待办事项"
+        items.append(item)
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
         // Do any additional setup after loading the view.
         
         let item0 = ChecklistItem()
@@ -79,6 +92,12 @@ class ChecklistViewContoller: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
         
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        items.remove(at: indexPath.row)
+        
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 
 

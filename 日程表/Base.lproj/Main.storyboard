@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KWh-RS-Z3Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="B0f-XH-79b">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Checklist View Contoller-->
+        <!--日程表-->
         <scene sceneID="fXZ-SB-G5M">
             <objects>
                 <tableViewController id="KWh-RS-Z3Y" customClass="ChecklistViewContoller" customModule="日程表" customModuleProvider="target" sceneMemberID="viewController">
@@ -45,10 +45,75 @@
                             <outlet property="delegate" destination="KWh-RS-Z3Y" id="Ace-5R-oBf"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="日程表" id="Fxb-6g-aH9">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ATZ-tP-zJl">
+                            <connections>
+                                <segue destination="fYe-z4-pHc" kind="show" id="lyy-Dm-TB4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d9l-c8-2hy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-287.19999999999999" y="-31.03448275862069"/>
+            <point key="canvasLocation" x="430" y="-31"/>
+        </scene>
+        <!--添加事项-->
+        <scene sceneID="png-SW-JSz">
+            <objects>
+                <tableViewController id="fYe-z4-pHc" customClass="AddItemViewController" customModule="日程表" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Rmn-d1-TkJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jK9-qS-GyX">
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jK9-qS-GyX" id="kbL-gB-SrC">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fYe-z4-pHc" id="CWA-ty-Z4D"/>
+                            <outlet property="delegate" destination="fYe-z4-pHc" id="ab2-Hf-g1w"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="添加事项" id="tnd-P7-KJ5">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="KLv-65-RHA">
+                            <connections>
+                                <action selector="cancel" destination="fYe-z4-pHc" id="V7J-il-PLN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="确定" id="gzB-Ie-AxN">
+                            <connections>
+                                <action selector="done" destination="fYe-z4-pHc" id="yWx-x2-ON3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p0g-t8-MeS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1287" y="-31"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="e9V-lV-y2Q">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="B0f-XH-79b" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FpP-Q9-wnk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KWh-RS-Z3Y" kind="relationship" relationship="rootViewController" id="deH-bf-6DW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UfN-H9-8xa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-655" y="-38"/>
         </scene>
     </scenes>
     <resources>

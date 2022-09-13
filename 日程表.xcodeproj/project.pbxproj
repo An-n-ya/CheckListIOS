@@ -13,6 +13,7 @@
 		4A5E23B528C839A20015BBF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A5E23B328C839A20015BBF1 /* Main.storyboard */; };
 		4A5E23B728C839A30015BBF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A5E23B628C839A30015BBF1 /* Assets.xcassets */; };
 		4A5E23BA28C839A30015BBF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A5E23B828C839A30015BBF1 /* LaunchScreen.storyboard */; };
+		4A6E52D728D0519E00BA40CA /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6E52D628D0519E00BA40CA /* AddItemViewController.swift */; };
 		4AB8661828CF01F700F7B798 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8661728CF01F700F7B798 /* ChecklistItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		4A5E23B628C839A30015BBF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A5E23B928C839A30015BBF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A5E23BB28C839A30015BBF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A6E52D628D0519E00BA40CA /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		4AB8661728CF01F700F7B798 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +64,7 @@
 				4A5E23AF28C839A20015BBF1 /* SceneDelegate.swift */,
 				4A5E23B128C839A20015BBF1 /* ChecklistViewController.swift */,
 				4A5E23B328C839A20015BBF1 /* Main.storyboard */,
+				4A6E52D628D0519E00BA40CA /* AddItemViewController.swift */,
 				4A5E23B628C839A30015BBF1 /* Assets.xcassets */,
 				4A5E23B828C839A30015BBF1 /* LaunchScreen.storyboard */,
 				4A5E23BB28C839A30015BBF1 /* Info.plist */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A6E52D728D0519E00BA40CA /* AddItemViewController.swift in Sources */,
 				4A5E23B228C839A20015BBF1 /* ChecklistViewController.swift in Sources */,
 				4A5E23AE28C839A20015BBF1 /* AppDelegate.swift in Sources */,
 				4A5E23B028C839A20015BBF1 /* SceneDelegate.swift in Sources */,
