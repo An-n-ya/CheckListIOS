@@ -48,7 +48,7 @@
                     <navigationItem key="navigationItem" title="日程表" id="Fxb-6g-aH9">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ATZ-tP-zJl">
                             <connections>
-                                <segue destination="fYe-z4-pHc" kind="show" id="lyy-Dm-TB4"/>
+                                <segue destination="fYe-z4-pHc" kind="show" identifier="AddItem" id="lyy-Dm-TB4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

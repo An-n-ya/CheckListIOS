@@ -7,19 +7,32 @@
 
 import UIKit
 
+// protocol的定义，类似于其他语言的interface
+// 可以继承
+protocol AddItemViewControllerDelegate: AnyObject {
+    func addItemViewControllerDidCancel(
+        _ controller: AddItemViewController)
+    func addItemViewController(
+        _ controller: AddItemViewController,
+        didFinishAdding item: ChecklistItem)
+}
+
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
+    weak var delegate: AddItemViewControllerDelegate? // 委派器
+    
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
     // MARK: - Actions
     @IBAction func cancel() {
-        navigationController?.popViewController(animated: true)
+        delegate?.addItemViewControllerDidCancel(self)
     }
     @IBAction func done() {
         // 与右上角的“确定”绑定
         // 与键盘的“Done”绑定
-        print("输入框的内容是: \(textField.text!)")
-        navigationController?.popViewController(animated: true)
+        let item = ChecklistItem()
+        item.text = textField.text!
+        delegate?.addItemViewController(self, didFinishAdding: item)
     }
 
     override func viewDidLoad() {

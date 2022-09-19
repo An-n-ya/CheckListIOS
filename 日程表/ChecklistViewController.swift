@@ -7,23 +7,13 @@
 
 import UIKit
 
-class ChecklistViewContoller: UITableViewController {
+class ChecklistViewContoller: UITableViewController, AddItemViewControllerDelegate {
     
+    
+    
+    // MARK: - Variables
     var items = [ChecklistItem]()
     
-    // MARK: - Actions
-    @IBAction func addItem() {
-        let newRowIndex = items.count
-        
-        let item = ChecklistItem()
-        item.text = "一个新的待办事项"
-        items.append(item)
-        
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-    }
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -98,6 +88,30 @@ class ChecklistViewContoller: UITableViewController {
         items.remove(at: indexPath.row)
         
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    // MARK: - Add Item ViewController Delegates
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+        // 在这里接受到AddItemViewController传递过来的item
+        // 把item添加到items里去
+        let newRowIndex = items.count
+        items.append(item)
+        
+        tableView.insertRows(at: [IndexPath(row: newRowIndex, section: 0)], with: .automatic)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddItem" {
+            let controller = segue.destination as! AddItemViewController
+            // 把当前controller传递给AddItemViewController
+            controller.delegate = self
+        }
     }
 
 
