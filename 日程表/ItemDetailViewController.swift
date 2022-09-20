@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  ItemDetailViewController.swift
 //  日程表
 //
 //  Created by 张环宇 on 2022/9/13.
@@ -9,35 +9,56 @@ import UIKit
 
 // protocol的定义，类似于其他语言的interface
 // 可以继承
-protocol AddItemViewControllerDelegate: AnyObject {
-    func addItemViewControllerDidCancel(
-        _ controller: AddItemViewController)
-    func addItemViewController(
-        _ controller: AddItemViewController,
+protocol ItemDetailViewControllerDelegate: AnyObject {
+    func itemDetailViewControllerDidCancel(
+        _ controller: ItemDetailViewController)
+    func itemDetailViewController(
+        _ controller: ItemDetailViewController,
         didFinishAdding item: ChecklistItem)
+    func itemDetailViewController(
+        _ controller: ItemDetailViewController,
+        didFinishEditing item: ChecklistItem)
 }
 
-class AddItemViewController: UITableViewController, UITextFieldDelegate {
-    weak var delegate: AddItemViewControllerDelegate? // 委派器
+class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
+    weak var delegate: ItemDetailViewControllerDelegate? // 委派器
+    
+    var itemToEdit: ChecklistItem?
     
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
     // MARK: - Actions
     @IBAction func cancel() {
-        delegate?.addItemViewControllerDidCancel(self)
+        delegate?.itemDetailViewControllerDidCancel(self)
     }
     @IBAction func done() {
         // 与右上角的“确定”绑定
-        // 与键盘的“Done”绑定
-        let item = ChecklistItem()
-        item.text = textField.text!
-        delegate?.addItemViewController(self, didFinishAdding: item)
+        if let item = itemToEdit {
+            // 如果是编辑页面
+            item.text = textField.text!
+            // 委托
+            delegate?.itemDetailViewController(self, didFinishEditing: item)
+        } else {
+            // 如果是添加页面
+            // 与键盘的“Done”绑定
+            let item = ChecklistItem()
+            item.text = textField.text!
+            // 委托
+            delegate?.itemDetailViewController(self, didFinishAdding: item)
+            
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
+        
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            doneBarButton.isEnabled = true
+        }
 
     }
     
