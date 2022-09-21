@@ -19,27 +19,8 @@ class ChecklistViewContoller: UITableViewController, ItemDetailViewControllerDel
         navigationController?.navigationBar.prefersLargeTitles = true
         // Do any additional setup after loading the view.
         
-        let item0 = ChecklistItem()
-        item0.text = "遛狗"
-        items.append(item0)
-        
-        let item1 = ChecklistItem()
-        item1.text = "刷牙"
-        item1.checked = true
-        items.append(item1)
-        
-        let item2 = ChecklistItem()
-        item2.text = "学习"
-        items.append(item2)
-        
-        let item3 = ChecklistItem()
-        item3.text = "运动"
-        item3.checked = true
-        items.append(item3)
-        
-        let item4 = ChecklistItem()
-        item4.text = "吃冰激凌"
-        items.append(item4)
+        // 读取数据
+        loadChecklistItems()
     }
     
     // MARK: - Help Functions
@@ -78,6 +59,8 @@ class ChecklistViewContoller: UITableViewController, ItemDetailViewControllerDel
         if let cell = tableView.cellForRow(at: indexPath) {
             let item = items[indexPath.row]
             item.checked.toggle()
+            // 保存数据
+            saveChecklistItems()
             
             configureCheckmark(for: cell, with: item)
         }
@@ -87,6 +70,8 @@ class ChecklistViewContoller: UITableViewController, ItemDetailViewControllerDel
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         items.remove(at: indexPath.row)
+        // 保存数据
+        saveChecklistItems()
         
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
@@ -102,6 +87,9 @@ class ChecklistViewContoller: UITableViewController, ItemDetailViewControllerDel
         let newRowIndex = items.count
         items.append(item)
         
+        // 保存数据
+        saveChecklistItems()
+        
         tableView.insertRows(at: [IndexPath(row: newRowIndex, section: 0)], with: .automatic)
         navigationController?.popViewController(animated: true)
     }
@@ -113,6 +101,8 @@ class ChecklistViewContoller: UITableViewController, ItemDetailViewControllerDel
                 configureText(for: cell, with: item)
             }
         }
+        // 保存数据
+        saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
     
@@ -129,6 +119,39 @@ class ChecklistViewContoller: UITableViewController, ItemDetailViewControllerDel
             // 把当前的checkListItem发送给ItemDetailViewController
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
                 controller.itemToEdit = items[indexPath.row]
+            }
+        }
+    }
+    
+    // MARK: - Persistence
+    func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> URL {
+        return documentsDirectory().appendingPathComponent("Checklists.plist")
+    }
+    
+    func saveChecklistItems() {
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(items)
+            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+        } catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
+    
+    func loadChecklistItems() {
+        let path = dataFilePath()
+        if let data = try? Data(contentsOf: path) {
+            let decoder = PropertyListDecoder()
+            do {
+                items = try decoder.decode([ChecklistItem].self, from: data)
+            } catch {
+                print("Error loading item array: \(error.localizedDescription)")
             }
         }
     }
