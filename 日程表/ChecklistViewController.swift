@@ -7,17 +7,19 @@
 
 import UIKit
 
-class ChecklistViewContoller: UITableViewController, ItemDetailViewControllerDelegate {
-    
-    
-    
+class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     // MARK: - Variables
     var items = [ChecklistItem]()
+    // 在AllListViewController的prepare还没有准备好的时候，这里的checklist可能是nil，
+    // 用！修饰可以让这个变量允许nil
+    var checklist: Checklist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        // Do any additional setup after loading the view.
+        // 设置标题
+        title = checklist.name
+        // 禁止大号标题
+        navigationItem.largeTitleDisplayMode = .never
         
         // 读取数据
         loadChecklistItems()
