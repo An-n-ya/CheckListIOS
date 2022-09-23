@@ -11,7 +11,7 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
     
     
     let cellIentifier = "ChecklistCell"
-    var lists = [Checklist]()
+    var dataModel: DataModel!
     // or var lists = Array<Checklist>()
 
     override func viewDidLoad() {
@@ -22,39 +22,43 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIentifier)
         
         
-        // 假数据
-        var list = Checklist()
-        list.name = "工作"
-        lists.append(list)
-        list = Checklist()
-        list.name = "学习"
-        lists.append(list)
-        list = Checklist(name: "日常")
-        lists.append(list)
-        list = Checklist(name: "TO DO")
-        lists.append(list)
-        
-        
+//        // 假数据
+//        var list = Checklist()
+//        list.name = "工作"
+//        lists.append(list)
+//        list = Checklist()
+//        list.name = "学习"
+//        lists.append(list)
+//        list = Checklist(name: "日常")
+//        lists.append(list)
+//        list = Checklist(name: "TO DO")
+//        lists.append(list)
+//
+//        for list in lists {
+//            let item = ChecklistItem()
+//            item.text = "Item for \(list.name)"
+//            list.items.append(item)
+//        }
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lists.count
+        return dataModel.lists.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIentifier, for: indexPath)
         
         // 更新cell信息
-        let checklist = lists[indexPath.row]
+        let checklist = dataModel.lists[indexPath.row]
         cell.textLabel!.text = checklist.name
         cell.accessoryType = .detailDisclosureButton
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let checklist = lists[indexPath.row]
+        let checklist = dataModel.lists[indexPath.row]
         performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
     
@@ -77,8 +81,8 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishAdding checklist: Checklist) {
-        let newRowIndex = lists.count
-        lists.append(checklist)
+        let newRowIndex = dataModel.lists.count
+        dataModel.lists.append(checklist)
         
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         let indexPaths = [indexPath]
@@ -88,7 +92,7 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist) {
-        if let index = lists.firstIndex(of: checklist) {
+        if let index = dataModel.lists.firstIndex(of: checklist) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
                 cell.textLabel!.text = checklist.name
@@ -103,7 +107,7 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
         let controller = storyboard!.instantiateViewController(withIdentifier: "ListDetailViewController") as! ListDetailViewController
         controller.delegate = self
         
-        let checklist = lists[indexPath.row]
+        let checklist = dataModel.lists[indexPath.row]
         controller.checklistToEdit = checklist
         
         // 入navigation栈
@@ -112,7 +116,7 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
     
     // MARK: - Delete
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        lists.remove(at: indexPath.row)
+        dataModel.lists.remove(at: indexPath.row)
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)

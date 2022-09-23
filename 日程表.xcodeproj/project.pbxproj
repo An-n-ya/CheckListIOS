@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A155B4628DD888200B29E32 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A155B4528DD888200B29E32 /* DataModel.swift */; };
 		4A1D231728DC302100F8AB82 /* AllListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1D231628DC302100F8AB82 /* AllListViewController.swift */; };
 		4A1D231928DC361800F8AB82 /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1D231828DC361800F8AB82 /* Checklist.swift */; };
 		4A1D231B28DC3D8E00F8AB82 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1D231A28DC3D8E00F8AB82 /* ListDetailViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A155B4528DD888200B29E32 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		4A1D231628DC302100F8AB82 /* AllListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListViewController.swift; sourceTree = "<group>"; };
 		4A1D231828DC361800F8AB82 /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 		4A1D231A28DC3D8E00F8AB82 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				4A1D231628DC302100F8AB82 /* AllListViewController.swift */,
 				4A1D231828DC361800F8AB82 /* Checklist.swift */,
 				4A1D231A28DC3D8E00F8AB82 /* ListDetailViewController.swift */,
+				4A155B4528DD888200B29E32 /* DataModel.swift */,
 			);
 			path = "日程表";
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				4AB8661828CF01F700F7B798 /* ChecklistItem.swift in Sources */,
 				4A1D231928DC361800F8AB82 /* Checklist.swift in Sources */,
 				4A1D231B28DC3D8E00F8AB82 /* ListDetailViewController.swift in Sources */,
+				4A155B4628DD888200B29E32 /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
