@@ -68,21 +68,45 @@
 		4A5E23AC28C839A20015BBF1 /* 日程表 */ = {
 			isa = PBXGroup;
 			children = (
+				4A6D18B528DEE0690043DEE1 /* Resources */,
+				4A6D18B428DEE04F0043DEE1 /* ViewController */,
+				4A6D18B328DEE0360043DEE1 /* DataModels */,
 				4A5E23AD28C839A20015BBF1 /* AppDelegate.swift */,
 				4A5E23AF28C839A20015BBF1 /* SceneDelegate.swift */,
-				4A5E23B128C839A20015BBF1 /* ChecklistViewController.swift */,
-				4A5E23B328C839A20015BBF1 /* Main.storyboard */,
-				4A6E52D628D0519E00BA40CA /* ItemDetailViewController.swift */,
-				4A5E23B628C839A30015BBF1 /* Assets.xcassets */,
-				4A5E23B828C839A30015BBF1 /* LaunchScreen.storyboard */,
 				4A5E23BB28C839A30015BBF1 /* Info.plist */,
-				4AB8661728CF01F700F7B798 /* ChecklistItem.swift */,
-				4A1D231628DC302100F8AB82 /* AllListViewController.swift */,
-				4A1D231828DC361800F8AB82 /* Checklist.swift */,
-				4A1D231A28DC3D8E00F8AB82 /* ListDetailViewController.swift */,
-				4A155B4528DD888200B29E32 /* DataModel.swift */,
 			);
 			path = "日程表";
+			sourceTree = "<group>";
+		};
+		4A6D18B328DEE0360043DEE1 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				4AB8661728CF01F700F7B798 /* ChecklistItem.swift */,
+				4A1D231828DC361800F8AB82 /* Checklist.swift */,
+				4A155B4528DD888200B29E32 /* DataModel.swift */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
+		4A6D18B428DEE04F0043DEE1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4A5E23B128C839A20015BBF1 /* ChecklistViewController.swift */,
+				4A6E52D628D0519E00BA40CA /* ItemDetailViewController.swift */,
+				4A1D231628DC302100F8AB82 /* AllListViewController.swift */,
+				4A1D231A28DC3D8E00F8AB82 /* ListDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4A6D18B528DEE0690043DEE1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A5E23B328C839A20015BBF1 /* Main.storyboard */,
+				4A5E23B628C839A30015BBF1 /* Assets.xcassets */,
+				4A5E23B828C839A30015BBF1 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

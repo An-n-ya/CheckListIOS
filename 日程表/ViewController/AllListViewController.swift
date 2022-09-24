@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllListViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListViewController: UITableViewController, ListDetailViewControllerDelegate, UINavigationControllerDelegate {
     
     
     let cellIentifier = "ChecklistCell"
@@ -40,6 +40,16 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
 //            list.items.append(item)
 //        }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.delegate = self
+        let index = dataModel.indexOfSelectedChecklist
+        if index >= 0 && index < dataModel.lists.count {
+            let checklist = dataModel.lists[index]
+            performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -58,7 +68,13 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 存入userDefaults 以便用户退出下次打开时依然停留这个页面
+        UserDefaults.standard.set(
+            indexPath.row,
+            forKey: "ChecklistIndex"
+        )
         let checklist = dataModel.lists[indexPath.row]
+        dataModel.indexOfSelectedChecklist = indexPath.row
         performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
     
@@ -120,5 +136,13 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
+    
+    // MRAK: - Navigation Controller Delegates
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if viewController === self {
+            // 如果即将渲染首页屏，将ChecklistIndex设置为-1
+            dataModel.indexOfSelectedChecklist = -1
+        }
     }
 }

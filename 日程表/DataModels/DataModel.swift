@@ -10,8 +10,20 @@ import Foundation
 class DataModel {
     var lists = [Checklist]()
     
+    // 计算属性
+    var indexOfSelectedChecklist: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "ChecklistIndex")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "ChecklistIndex")
+        }
+    }
+    
     init() {
         loadChecklists()
+        registerDefaults()
+        handleFirstTime()
     }
     
     // MARK: - Data Saving
@@ -44,6 +56,26 @@ class DataModel {
             } catch {
                 print("Error decoding list array: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func registerDefaults() {
+        let dictionary = ["ChecklistIndex": -1, "FirstTime": true] as [String: Any]
+        UserDefaults.standard.register(defaults: dictionary)
+    }
+    
+    // 首次进入应用的默认列表
+    func handleFirstTime() {
+        let userDefaults = UserDefaults.standard
+        let firstTime = userDefaults.bool(forKey: "FirstTime")
+        
+        if firstTime {
+            let checklist = Checklist(name: "待办事项")
+            lists.append(checklist)
+            
+            // 打开首屏
+            indexOfSelectedChecklist = 0
+            userDefaults.set(false, forKey: "FirstTime")
         }
     }
     
