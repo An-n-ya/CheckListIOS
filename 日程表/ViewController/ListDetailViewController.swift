@@ -21,11 +21,15 @@ protocol ListDetailViewControllerDelegate: AnyObject {
         didFinishEditing checklist: Checklist)
 }
 
-class ListDetailViewController: UITableViewController, UITextFieldDelegate {
+class ListDetailViewController: UITableViewController, UITextFieldDelegate, IconPickerViewControllerDelegate {
+    
     @IBOutlet var textField: UITextField!
     @IBOutlet var doneBarButton: UIBarButtonItem!
+    @IBOutlet var iconImage: UIImageView!
     
     weak var delegate: ListDetailViewControllerDelegate?
+    
+    var iconName = "Folder"
     
     var checklistToEdit: Checklist?
     
@@ -34,9 +38,11 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
         
         if let checklist = checklistToEdit {
             title = "编辑列表"
+            iconName = checklist.iconName
             textField.text = checklist.name
             doneBarButton.isEnabled = true
         }
+        iconImage.image = UIImage(named: iconName)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,17 +59,28 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func done() {
         if let checklist = checklistToEdit {
             checklist.name = textField.text!
+            checklist.iconName = iconName
             delegate?.listDetailViewController(self, didFinishEditing: checklist)
         } else {
             let checklist = Checklist(name: textField.text!)
+            checklist.iconName = iconName
             delegate?.listDetailViewController(self, didFinishAdding: checklist)
+        }
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PickIcon" {
+            let controller = segue.destination as! IconPickerViewController
+            // 移交delegate
+            controller.delegate = self
         }
     }
     
     // MARK: - Table Viwe Delegates
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         // 确保用户不会选中textField
-        return nil
+        return indexPath.section ==  1 ? indexPath : nil
     }
     
     // 控制Done按钮
@@ -78,6 +95,15 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         doneBarButton.isEnabled = false
         return true
+    }
+    
+    // MARK: - Icon Picker View Controller Delegates
+    func iconPicker(_picker: IconPickerViewController, didPick iconName: String) {
+        // 设置iconImage
+        self.iconName = iconName
+        iconImage.image = UIImage(named: iconName)
+        // 跳回该页面
+        navigationController?.popViewController(animated: true)
     }
     
 }

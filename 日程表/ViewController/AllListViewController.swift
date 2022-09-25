@@ -18,8 +18,8 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
         super.viewDidLoad()
         // 大号标题
         navigationController?.navigationBar.prefersLargeTitles = true
-        // 注册cell
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIentifier)
+//        // 注册cell
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIentifier)
         
         
 //        // 假数据
@@ -50,6 +50,11 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
             performSegue(withIdentifier: "ShowChecklist", sender: checklist)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
@@ -58,12 +63,28 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIentifier, for: indexPath)
+        let cell: UITableViewCell!
+        if let tmp = tableView.dequeueReusableCell(withIdentifier: cellIentifier) {
+            // 利用空闲的具有subtitle的cell
+            cell = tmp
+        } else{
+            // 生成具有subtitle的cell
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIentifier)
+        }
         
         // 更新cell信息
         let checklist = dataModel.lists[indexPath.row]
         cell.textLabel!.text = checklist.name
+        let cnt = checklist.countUncheckedItems()
+        if checklist.items.count == 0 {
+            cell.detailTextLabel!.text = "（没有事项）"
+        } else {
+            cell.detailTextLabel!.text = cnt == 0 ? "全部完成" : "\(cnt)个待办事项"
+        }
         cell.accessoryType = .detailDisclosureButton
+        
+        // 设置图标
+        cell.imageView!.image = UIImage(named: checklist.iconName)
         return cell
     }
     
