@@ -33,6 +33,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     
     func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
         let label = cell.viewWithTag(1000) as! UILabel
+//        label.text = "\(item.itemID): \(item.text)"
         label.text = item.text
     }
     
@@ -57,6 +58,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         if let cell = tableView.cellForRow(at: indexPath) {
             let item = checklist.items[indexPath.row]
             item.checked.toggle()
+            item.scheduleNotification()
             
             configureCheckmark(for: cell, with: item)
         }

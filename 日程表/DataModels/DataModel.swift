@@ -26,6 +26,14 @@ class DataModel {
         handleFirstTime()
     }
     
+    class func nextChecklistItemID() -> Int {
+        let userDefaults = UserDefaults.standard
+        // 从UserDefaults这里获取全局变量 ChecklistItemID (默认值为0)
+        let itemID = userDefaults.integer(forKey: "ChecklistItemID")
+        userDefaults.set(itemID + 1, forKey: "ChecklistItemID")
+        return itemID
+    }
+    
     // MARK: - Data Saving
     func documentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

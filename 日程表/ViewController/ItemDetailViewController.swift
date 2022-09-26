@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 // protocol的定义，类似于其他语言的interface
 // 可以继承
@@ -27,6 +28,8 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var shouldRemindSwitch: UISwitch!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     // MARK: - Actions
     @IBAction func cancel() {
@@ -36,7 +39,15 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
         // 与右上角的“确定”绑定
         if let item = itemToEdit {
             // 如果是编辑页面
+            
             item.text = textField.text!
+            
+            // 同步页面状态
+            item.shouldRemind = shouldRemindSwitch.isOn
+            item.dueData = datePicker.date
+            
+            item.scheduleNotification()
+            
             // 委托
             delegate?.itemDetailViewController(self, didFinishEditing: item)
         } else {
@@ -44,11 +55,32 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
             // 与键盘的“Done”绑定
             let item = ChecklistItem()
             item.text = textField.text!
+            
+            // 同步页面状态
+            item.shouldRemind = shouldRemindSwitch.isOn
+            item.dueData = datePicker.date
+            
+            item.scheduleNotification()
+            
             // 委托
             delegate?.itemDetailViewController(self, didFinishAdding: item)
             
         }
     }
+    @IBAction func shouldRemindToggled(_ switchControl: UISwitch) {
+        textField.resignFirstResponder()
+        
+        if switchControl.isOn {
+            
+            // Notification autherization
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound]) {
+                _, _ in
+                // do nothing
+            }
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +90,9 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
             title = "Edit Item"
             textField.text = item.text
             doneBarButton.isEnabled = true
+            // 同步显示时间
+            shouldRemindSwitch.isOn = item.shouldRemind
+            datePicker.date = item.dueData
         }
 
     }
